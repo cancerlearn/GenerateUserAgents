@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup as bs
 import requests as rs
-import GenerateProxyIP as genIP
 import random as rnd
 
 def getAllUserAgents(browser):
