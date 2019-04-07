@@ -16,12 +16,23 @@ def getAllUserAgents():
     }
 
     #webpage response
-    wpg = rs.get(wpgURL, headers = headers, proxies = genIP.getRandomProxyIPDict())
+    wpg = rs.get(wpgURL, headers = headers, proxies = genIP.getRandomProxyIPDict(), timeout = 5)
+
+    #check if request was successful
+    if (wpg.status_code != 200):
+        print("status code not 200", "status code is", wpg.status_code)
+        return
 
     #html-parsed "soup" of page content
     useragents_Soup = bs(wpg.content, 'html.parser')
 
-    print(useragents_Soup)
+    userAgentTable = useragents_Soup.select("div.corset>table.table-useragents>tbody>tr")
+
+    #print(userAgentTable)
+
+    for row in userAgentTable:
+
+        print(row.select_one("td.useragent>a").string)
 
 
 
