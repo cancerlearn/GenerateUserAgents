@@ -1,9 +1,10 @@
 from bs4 import BeautifulSoup as bs
 import requests as rs
+import GenerateProxyIP as genIP
 
 def getAllUserAgents():
     """
-    This method gets a list of all chrome user agents 
+    This method gets a list of all chrome user agents from the webpage "https://developers.whatismybrowser.com/useragents/explore/software_name/chrome/"
     """
     #webpage url where user agents will be scraped from
     wpgURL = "https://developers.whatismybrowser.com/useragents/explore/software_name/chrome/"
@@ -15,7 +16,7 @@ def getAllUserAgents():
     }
 
     #webpage response
-    wpg = rs.get(wpgURL, headers = headers, proxies = ) #Insert proxies here
+    wpg = rs.get(wpgURL, headers = headers, proxies = genIP.getRandomProxyIPDict())
 
     #html-parsed "soup" of page content
     useragents_Soup = bs(wpg.content, 'html.parser')
